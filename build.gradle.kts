@@ -59,6 +59,7 @@ dependencies {
             strictly("2.0.0")
         }
     }
+    implementation("com.detectlanguage:detectlanguage:1.1.0")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.2")
     testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.5")

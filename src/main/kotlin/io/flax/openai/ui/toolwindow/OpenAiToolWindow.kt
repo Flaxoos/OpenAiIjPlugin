@@ -1,5 +1,6 @@
 package io.flax.openai.ui.toolwindow
 
+import com.detectlanguage.DetectLanguage
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.wm.ToolWindow
 import com.intellij.openapi.wm.ToolWindowAnchor
@@ -30,18 +31,32 @@ class OpenAiToolWindow(private val toolWindow: ToolWindow) {
         }
     }
 
-    private lateinit var codeTextArea: JTextArea
-    private lateinit var explanationTextArea: JTextArea
+    private lateinit var inputTextArea: JTextArea
+    private lateinit var outputTextArea: JTextArea
     private lateinit var explainingProcess: AsyncProcessIcon
     internal var content: JPanel = buildUi().also { this.toolWindow.component.add(it) }
 
     fun explainCode(code: String) {
         toolWindow.show()
         explainingProcess.isVisible = true
-        val explanation = OpenAiClient.explainCode(code)
-        this.codeTextArea.text = code
-        this.explanationTextArea.text = explanation.joinToString("\n")
+        val results = DetectLanguage.detect(code)
+        val explanation = if (results.isNotEmpty()) {
+            OpenAiClient.explainCode(code, results.maxBy { it.confidence }.language)
+        } else {
+            emptyList()
+        }
+        this.inputTextArea.text = code
+        this.outputTextArea.text = explanation.joinToString("\n")
         explainingProcess.isVisible = false
+    }
+
+    fun generateCode(description: String) {
+        toolWindow.show()
+//        explainingProcess.isVisible = true
+        val code = OpenAiClient.generateCode(description)
+        this.inputTextArea.text = description
+        this.outputTextArea.text = code
+//        explainingProcess.isVisible = false
     }
 
     private fun buildUi() = panel {
@@ -53,12 +68,12 @@ class OpenAiToolWindow(private val toolWindow: ToolWindow) {
                 textArea().also {
                     it.component.name = codeName
                     it.component.isEditable = true
-                    codeTextArea = it.component
+                    inputTextArea = it.component
                 }.horizontalAlign(HorizontalAlign.FILL)
             }
             row {
                 button("Explain") {
-                    explainCode(codeTextArea.text)
+                    explainCode(inputTextArea.text)
                 }
                 cell(AsyncProcessIcon("Explaining").also { explainingProcess = it })
             }
@@ -68,7 +83,7 @@ class OpenAiToolWindow(private val toolWindow: ToolWindow) {
                 textArea().also {
                     it.component.name = explanationName
                     it.component.isEditable = false
-                    explanationTextArea = it.component
+                    outputTextArea = it.component
                 }.horizontalAlign(HorizontalAlign.FILL)
             }
         }
