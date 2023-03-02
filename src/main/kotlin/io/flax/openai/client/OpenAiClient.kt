@@ -3,9 +3,7 @@ package io.flax.openai.client
 import com.aallam.openai.api.completion.completionRequest
 import com.aallam.openai.api.model.ModelId
 import com.aallam.openai.client.OpenAI
-import io.flax.openai.ui.toolwindow.OpenAiToolWindow
 import io.ktor.network.sockets.*
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 object OpenAiClient {

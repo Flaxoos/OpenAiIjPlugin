@@ -60,7 +60,7 @@ class OpenAiToolWindow(private val toolWindow: ToolWindow) {
                 button("Explain") {
                     explainCode(codeTextArea.text)
                 }
-//                cell(AsyncProcessIcon("Explaining").also { explainingProcess = it })
+                cell(AsyncProcessIcon("Explaining").also { explainingProcess = it })
             }
             separator()
             row { label(explanationName) }
