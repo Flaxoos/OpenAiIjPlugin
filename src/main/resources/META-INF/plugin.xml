@@ -1,0 +1,41 @@
+<!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
+<idea-plugin>
+    <!-- Unique identifier of the plugin. It should be FQN. It cannot be changed between the plugin versions. -->
+    <id>io.flax.OpenAi</id>
+
+    <!-- Public plugin name should be written in Title Case.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
+    <name>OpenAi</name>
+
+    <!-- A displayed Vendor name or Organization ID displayed on the Plugins Page. -->
+    <vendor email="idoflax@gmail.com" url="https://github.com/idoflax">Ido Flax</vendor>
+
+    <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
+         Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
+         Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <description><![CDATA[
+    Open Api Code Helper.<br>
+    <em>Connects to open api to generate and explain code</em>
+  ]]></description>
+
+    <!-- Product and plugin compatibility requirements.
+         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-compatibility.html -->
+    <depends>com.intellij.modules.platform</depends>
+
+<!--    &lt;!&ndash; Extension points defined by the plugin.-->
+<!--         Read more: https://plugins.jetbrains.com/docs/intellij/plugin-extension-points.html &ndash;&gt;-->
+<!--    <extensions defaultExtensionNs="com.intellij">-->
+<!--        <toolWindow id="Open AI" secondary="true" icon="io.flax.openai.ui.icons.OpenAiIcons.Logo" anchor="right"-->
+<!--                    factoryClass="io.flax.openai.ui.toolwindow.OpenAiToolWindowFactory"/>-->
+<!--    </extensions>-->
+
+    <actions>
+        <action class="io.flax.openai.actions.ExplainCodeAction"
+        id="Open AI"
+        text="Explain Code"
+        description="Get Open Ai to explain a piece of code">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+        </action>
+    </actions>
+
+</idea-plugin>
