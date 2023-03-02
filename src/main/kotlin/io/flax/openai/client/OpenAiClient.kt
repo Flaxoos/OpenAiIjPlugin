@@ -9,7 +9,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 
 object OpenAiClient {
-    private const val key = "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"
+    private val key = System.getenv("openai-key")
     private val openAi = OpenAI(key)
     fun explainCode(code: String) = try {
         runBlocking {

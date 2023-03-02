@@ -1,12 +1,12 @@
 package io.flax.openai.ui.icons
 
-import com.intellij.ui.IconManager
+import com.intellij.openapi.util.IconLoader
 import com.intellij.util.IconUtil
 
 object OpenAiIcons {
     @JvmField
     val Logo = IconUtil.resizeSquared(
-        IconManager.getInstance().loadRasterizedIcon("open-ai-icon-pink.png", javaClass.classLoader, -1, 1),
+        IconLoader.getIcon("/openai-icon.svg", javaClass.classLoader),
         13,
     )
 }
